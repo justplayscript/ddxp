@@ -1,0 +1,19 @@
+{
+	"name": "叮咚重写订阅",
+	"author": "elecV2p",
+	"mitmhost": [
+		"farm.api.ddxq.mobi"
+	],
+	"rewrite": [
+		{
+			"match": "https://farm.api.ddxq.mobi/api/v2/task/achieve?",
+			"target": "https://raw.githubusercontent.com/justplayscript/ddxp/main/ddxp.js",
+			"enable": true
+		},
+		{
+			"match": "https://farm.api.ddxq.mobi/api/v2/task/achieve?",
+			"target": "https://raw.githubusercontent.com/justplayscript/ddxp/main/ddxpgy.js",
+			"enable": true
+		}
+	]
+}

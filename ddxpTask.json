@@ -1,0 +1,26 @@
+{
+	"name": "叮咚买菜自动签到",
+	"desc": "无",
+	"date": "2021-9-14 22:40:00",
+	"resource": "https://raw.githubusercontent.com/justplayscript/ddxp/main/ddxpTask.json",
+	"list": [
+		{
+			"name": "叮咚整合签到",
+			"type": "cron",
+			"time": "10 0 * * *",
+			"job": {
+				"type": "runjs",
+				"target": "https://raw.githubusercontent.com/justplayscript/ddxp/main/ddxp.js"
+			}
+		},
+		{
+			"name": "叮咚准点签到",
+			"type": "cron",
+			"time": "11 8,11,17 * * *",
+			"job": {
+				"type": "runjs",
+				"target": "https://raw.githubusercontent.com/justplayscript/ddxp/main/ddxptime.js"
+			}
+		}
+	]
+}
