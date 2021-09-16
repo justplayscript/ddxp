@@ -5,7 +5,7 @@ ck获取：打开app,翻翻乐玩一次,领取即可
 [MITM]
 hostname = farm.api.ddxq.mobi
 [task_local]
-10 0 * * * https://raw.githubusercontent.com/justplayscript/ddxp/main/ddxpyt.js, tag=叮咚买菜签到, enabled=true
+10 0 * * * https://raw.githubusercontent.com/justplayscript/ddxp/main/ddxp.js, tag=叮咚买菜签到, enabled=true
 [rewrite_local] 
 https://farm.api.ddxq.mobi/api/v2/task/achieve url script-request-header https://raw.githubusercontent.com/justplayscript/ddxp/main/ddxp.js
 */
