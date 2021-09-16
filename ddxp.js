@@ -18,7 +18,7 @@ let ddxpurlArr = [],
 let time = Math.round(Date.now() / 1000)
 let ddxpurl = $.getdata('ddxpurl')
 let ddxphd = $.getdata('ddxphd')
-let fflNum = +($.getval('ddxphd') || "10")
+let fflNum = +($.getval('ddxpffl') || "10")
 !(async () => {
     if (typeof $request !== "undefined") {
         await ddxpck()
@@ -43,14 +43,14 @@ let fflNum = +($.getval('ddxphd') || "10")
                     await ddxffl();
                     await $.wait(10000);
                 }
-                await ddxfflend();
-                await $.wait(10000);
-                await ddxfflget()
                 await $.wait(50000);
                 await ddxlook();
                 await $.wait(10000);
-                await ddxlookend();
+                await ddxTaskLog();
                 await $.wait(10000);
+                await ddxfflget()
+                await $.wait(10000);
+                await ddxlookend();
                 await ddxgyqd1();
                 await $.wait(10000);
                 await ddxgyqd2();
@@ -217,8 +217,8 @@ function ddxffl(timeout = 0) {
     })
 }
 
-//获取翻牌后的TaskLog
-function ddxfflend(timeout = 0) {
+//获取所有TaskLog
+function ddxTaskLog(timeout = 0) {
     userTaskLogId = ""
     return new Promise((resolve) => {
         let header = pubHeader()
@@ -318,6 +318,14 @@ function ddxlook(timeout = 0) {
 
 //鱼塘观看商品领取
 function ddxlookend(timeout = 0) {
+    userTaskLogId = ""
+    if (userTasks != null) {
+        for (const task of userTasks) {
+            if (task.taskCode == "BROWSE_GOODS") {
+                userTaskLogId = task.userTaskLogId
+            }
+        }
+    }
     return new Promise((resolve) => {
         let header = pubHeader()
         header["origin"] = "https://cms.api.ddxq.mobi"
