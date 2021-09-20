@@ -45,12 +45,17 @@ let fflNum = +($.getval('ddxpffl') || "10")
                 }
                 await $.wait(50000);
                 await ddxlook();
+                await $.wait(50000);
+                await ddxlook2();
                 await $.wait(10000);
                 await ddxTaskLog();
                 await $.wait(10000);
                 await ddxfflget()
                 await $.wait(10000);
                 await ddxlookend();
+                await $.wait(10000);
+                await ddxlookend2();
+                await $.wait(10000);
                 await ddxgyqd1();
                 await $.wait(10000);
                 await ddxgyqd2();
@@ -341,6 +346,75 @@ function ddxlookend(timeout = 0) {
                 const result = JSON.parse(data)
                 if (result.code == 0) {
                     console.log('\n鱼塘浏览30秒: ' + result.msg)
+                } else {
+                    console.log(result)
+                }
+            } catch (e) {
+                //$.logErr(e, resp);
+            } finally {
+                resolve()
+            }
+        }, timeout)
+    })
+}
+
+//鱼塘观看商品
+function ddxlook2(timeout = 0) {
+    userTaskLogId = ""
+    return new Promise((resolve) => {
+        let header = pubHeader()
+        header["origin"] = "https://cms.api.ddxq.mobi"
+        header["ddmc-game-tid"] = "1"
+        header["referer"] = `https://cms.api.ddxq.mobi/cms-service/client/page/v1/getPageInfo?uuid=${uid}&themeColor=72b1ff&hideShare=true&gameTask=BROWSE_GOODS2S&s=mine_farm_new&native_city_number=1103`
+        let url = {
+            url: `https://farm.api.ddxq.mobi/api/v2/task/achieve?latitude=${latitude}&longitude=${longitude}&env=PE&station_id=${station_id}&city_number=1103&api_version=9.28.0&app_client_id=3&native_version=9.35.1&h5_source=&page_type=2&gameId=1&taskCode=BROWSE_GOODS2`,
+            headers: header,
+        }
+
+        $.get(url, async (err, resp, data) => {
+            try {
+                const result = JSON.parse(data)
+                if (result.code == 0) {
+                    console.log('\n鱼塘浏览30秒: ' + result.msg)
+                    if (result.data) userTaskLogId = result.data.userTaskLogId
+                    console.log('\nuserTaskLogId: ' + userTaskLogId)
+                } else {
+                    console.log(result)
+                }
+            } catch (e) {
+                //$.logErr(e, resp);
+            } finally {
+                resolve()
+            }
+        }, timeout)
+    })
+}
+
+//鱼塘观看商品领取
+function ddxlookend2(timeout = 0) {
+    userTaskLogId = ""
+    if (userTasks != null) {
+        for (const task of userTasks) {
+            if (task.taskCode == "BROWSE_GOODS2") {
+                userTaskLogId = task.userTaskLogId
+            }
+        }
+    }
+    return new Promise((resolve) => {
+        let header = pubHeader()
+        header["origin"] = "https://game.m.ddxq.mobi"
+        header["ddmc-game-tid"] = "1"
+        header["referer"] = `https://game.m.ddxq.mobi/index.html`
+        let url = {
+            url: `https://farm.api.ddxq.mobi/api/v2/task/reward?api_version=9.1.0&app_client_id=1&station_id=${station_id}&native_version=&app_version=9.35.3&uid=${uid}&latitude=${latitude}&longitude=${longitude}&gameId=1&userTaskLogId=${userTaskLogId}`,
+            headers: header,
+        }
+
+        $.get(url, async (err, resp, data) => {
+            try {
+                const result = JSON.parse(data)
+                if (result.code == 0) {
+                    console.log('\n鱼塘浏览拼团活动得饲料: ' + result.msg)
                 } else {
                     console.log(result)
                 }
