@@ -1,4 +1,4 @@
-# ddxp
+# 叮咚买菜自动领取脚本
 新用户可以扫码注册,有几十块新人红包
 ![image](https://github.com/justplayscript/ddxp/blob/main/img0.jpg)
 
