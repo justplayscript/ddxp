@@ -4,7 +4,7 @@
 
 建议手动抓包.    
 anyproxy我抓取不到相关连接,QX可以自测看看是否能抓到.    
-手动抓包签到后搜索关键词"/task/achieve?",将整段url存在变量ddxpurl中    
+手动抓包签到后搜索关键词"https://farm.api.ddxq.mobi/api/v2/task/achieve?api_version=*&app_client_id=*&station_id=*&native_version=*&app_version=*&uid=*&latitude=*&longitude=*&gameId=*&taskCode=* ",将整段url存在变量ddxpurl中    
 整串连接应该是类似于"/task/achieve?&station_id=*&uid=*&latitude=*&longitude=*",这几个参数是关键    
 然后同个连接下的ck存在ddxphd中就能跑脚本了.    
 翻牌默认十次全翻完(基本是赚的),不想翻完的可以通过ddxpffl设置次数    
