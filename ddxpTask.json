@@ -30,6 +30,15 @@
 				"type": "runjs",
 				"target": "https://raw.githubusercontent.com/justplayscript/ddxp/main/ddxpxd.js"
 			}
+		},
+		{
+			"name": "每日签到积分",
+			"type": "cron",
+			"time": "1 0 * * *",
+			"job": {
+				"type": "runjs",
+				"target": "https://raw.githubusercontent.com/justplayscript/ddxp/main/ddxpsign.js"
+			}
 		}
 	]
 }
