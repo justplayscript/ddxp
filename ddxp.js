@@ -56,6 +56,8 @@ let fflNum = +($.getval('ddxpffl') || "10")
                 await $.wait(10000);
                 await ddxlookend2();
                 await $.wait(10000);
+                await ddxpgettask();
+                await $.wait(10000);
                 await ddxgyqd1();
                 await $.wait(10000);
                 await ddxgyqd2();
@@ -415,6 +417,34 @@ function ddxlookend2(timeout = 0) {
                 const result = JSON.parse(data)
                 if (result.code == 0) {
                     console.log('\n鱼塘浏览拼团活动得饲料: ' + result.msg)
+                } else {
+                    console.log(result)
+                }
+            } catch (e) {
+                //$.logErr(e, resp);
+            } finally {
+                resolve()
+            }
+        }, timeout)
+    })
+}
+
+//领取鱼塘下单任务
+function ddxpgettask(timeout = 0) {
+    return new Promise((resolve) => {
+        let header = pubHeader()
+        header["origin"] = "https://game.m.ddxq.mobi"
+        header["referer"] = `https://game.m.ddxq.mobi/index.html`
+        let url = {
+            url: `https://farm.api.ddxq.mobi/api/v2/task/receive?api_version=9.1.0&app_client_id=1&station_id=${station_id}&native_version=&app_version=9.37.0&uid=${uid}&latitude=${latitude}&longitude=${longitude}&gameId=1&taskCode=ANY_ORDER`,
+            headers: header,
+        }
+
+        $.get(url, async (err, resp, data) => {
+            try {
+                const result = JSON.parse(data)
+                if (result.code == 0) {
+                    console.log('\n领取下单任务: ' + result.msg)
                 } else {
                     console.log(result)
                 }
