@@ -16,7 +16,7 @@
 		{
 			"name": "叮咚准点签到",
 			"type": "cron",
-			"time": "11 8,11,17 * * *",
+			"time": "5 7,10,16 * * *",
 			"job": {
 				"type": "runjs",
 				"target": "https://raw.githubusercontent.com/justplayscript/ddxp/main/ddxptime.js"
