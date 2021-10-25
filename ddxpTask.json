@@ -46,7 +46,7 @@
 			"time": "30 0 * * *",
 			"job": {
 				"type": "runjs",
-				"target": "https://raw.githubusercontent.com/justplayscript/ddxp/main/ddxpsign.js"
+				"target": "https://raw.githubusercontent.com/justplayscript/ddxp/main/ddxpautoeval.js"
 			}
 		}
 	]
