@@ -16,7 +16,7 @@
 		{
 			"name": "叮咚准点签到",
 			"type": "cron",
-			"time": "5 7,10,16 * * *",
+			"time": "1 7,10,16 * * *",
 			"job": {
 				"type": "runjs",
 				"target": "https://raw.githubusercontent.com/justplayscript/ddxp/main/ddxptime.js"
@@ -35,6 +35,15 @@
 			"name": "叮咚每日签到积分",
 			"type": "cron",
 			"time": "1 0 * * *",
+			"job": {
+				"type": "runjs",
+				"target": "https://raw.githubusercontent.com/justplayscript/ddxp/main/ddxpsign.js"
+			}
+		},
+		{
+			"name": "叮咚自动喂鱼浇水",
+			"type": "cron",
+			"time": "30 0 * * *",
 			"job": {
 				"type": "runjs",
 				"target": "https://raw.githubusercontent.com/justplayscript/ddxp/main/ddxpsign.js"
