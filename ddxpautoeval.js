@@ -1,9 +1,10 @@
 /*
+叮咚自动喂鱼浇水
 [task_local]
-30 23 * * * https://raw.githubusercontent.com/justplayscript/ddxp/main/ddxpxd.js, tag=叮咚下单后自动领取, enabled=true
+30 23 * * * https://raw.githubusercontent.com/justplayscript/ddxp/main/ddxpautoeval.js, tag=叮咚自动喂鱼浇水, enabled=true
 */
 
-const $ = new Env('叮咚买菜下单后自动领取');
+const $ = new Env('叮咚自动喂鱼浇水');
 const dr = "@"
 let ddxpurlArr = [],
     ddxphdArr = [],
@@ -20,7 +21,7 @@ let ddxpjs = $.getdata('ddxpjs')
     console.log(`------------- 共${ddxphdArr.length}个账号-------------\n`)
     for (let i = 0; i < ddxphdArr.length; i++) {
         if (ddxphdArr[i]) {
-            this.getUrl(ddxpurlArr[i])
+            getUrl(ddxpurlArr[i])
             ddxphd = ddxphdArr[i];
 
             $.index = i + 1;
@@ -63,7 +64,8 @@ propsId = null
 expPercent = null
 
 function getUrl(ddxpurl) {
-    let ddxpurls = ddxpurl.split("?")[1].split("&")
+    let url = ddxpurl.split("?")
+    let ddxpurls = url[url.length - 1].split("&")
     let sendInfo = {}
     for (const val of ddxpurls) {
         let vals = val.split("&")
@@ -72,10 +74,9 @@ function getUrl(ddxpurl) {
             sendInfo[kv[0]] = kv[1]
         }
     }
-    this.uid = sendInfo["uid"]
+    uid = sendInfo["uid"]
     latitude = sendInfo["latitude"]
     longitude = sendInfo["longitude"]
-    station_id = sendInfo["station_id"]
     station_id = sendInfo["station_id"]
 }
 
@@ -499,7 +500,11 @@ function Env(t, e) {
         }
 
         getval(t) {
-            return this.isSurge() || this.isLoon() ? $persistentStore.read(t) : this.isQuanX() ? $prefs.valueForKey(t) : this.isNode() ? (this.data = this.loaddata(), this.data[t]) : this.data && this.data[t] || null
+            if (this.isNode()) {
+                return process.env[t]
+            } else {
+                return this.isSurge() || this.isLoon() ? $persistentStore.read(t) : this.isQuanX() ? $prefs.valueForKey(t) : this.isNode() ? (this.data = this.loaddata(), this.data[t]) : this.data && this.data[t] || null
+            }
         }
 
         setval(t, e) {

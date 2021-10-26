@@ -1,7 +1,7 @@
 /*
-叮咚买菜
+叮咚买菜准点签到
 [task_local]
-11 8,11,17 * * * https://raw.githubusercontent.com/justplayscript/ddxp/main/ddxptime.js, tag=叮咚买菜准点签到, enabled=true
+1 7,10,16 * * * https://raw.githubusercontent.com/justplayscript/ddxp/main/ddxptime.js, tag=叮咚买菜准点签到, enabled=true
 */
 
 
@@ -20,7 +20,7 @@ let ddxphd = $.getdata('ddxphd')
     console.log(`------------- 共${ddxphdArr.length}个账号-------------\n`)
     for (let i = 0; i < ddxphdArr.length; i++) {
         if (ddxphdArr[i]) {
-            this.getUrl(ddxpurlArr[i])
+            getUrl(ddxpurlArr[i])
             ddxphd = ddxphdArr[i];
 
             $.index = i + 1;
@@ -54,7 +54,8 @@ longitude = ""
 station_id = ""
 
 function getUrl(ddxpurl) {
-    let ddxpurls = ddxpurl.split("?")[1].split("&")
+    let url = ddxpurl.split("?")
+    let ddxpurls = url[url.length - 1].split("&")
     let sendInfo = {}
     for (const val of ddxpurls) {
         let vals = val.split("&")
@@ -63,10 +64,10 @@ function getUrl(ddxpurl) {
             sendInfo[kv[0]] = kv[1]
         }
     }
-    this.uid = sendInfo["uid"]
-    this.latitude = sendInfo["latitude"]
-    this.longitude = sendInfo["longitude"]
-    this.station_id = sendInfo["station_id"]
+    uid = sendInfo["uid"]
+    latitude = sendInfo["latitude"]
+    longitude = sendInfo["longitude"]
+    station_id = sendInfo["station_id"]
 }
 
 //鱼塘准点
@@ -313,7 +314,11 @@ function Env(t, e) {
         }
 
         getval(t) {
-            return this.isSurge() || this.isLoon() ? $persistentStore.read(t) : this.isQuanX() ? $prefs.valueForKey(t) : this.isNode() ? (this.data = this.loaddata(), this.data[t]) : this.data && this.data[t] || null
+            if (this.isNode()) {
+                return process.env[t]
+            } else {
+                return this.isSurge() || this.isLoon() ? $persistentStore.read(t) : this.isQuanX() ? $prefs.valueForKey(t) : this.isNode() ? (this.data = this.loaddata(), this.data[t]) : this.data && this.data[t] || null
+            }
         }
 
         setval(t, e) {

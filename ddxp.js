@@ -10,7 +10,7 @@ hostname = farm.api.ddxq.mobi
 https://farm.api.ddxq.mobi/api/v2/task/achieve url script-request-header https://raw.githubusercontent.com/justplayscript/ddxp/main/ddxp.js
 */
 
-const $ = new Env('叮咚买菜浇水');
+const $ = new Env('叮咚整合签到');
 const dr = "@"
 let ddxpurlArr = [],
     ddxphdArr = [],
@@ -29,7 +29,7 @@ let fflNum = +($.getval('ddxpffl') || "10")
         console.log(`------------- 共${ddxphdArr.length}个账号-------------\n`)
         for (let i = 0; i < ddxphdArr.length; i++) {
             if (ddxphdArr[i]) {
-                this.getUrl(ddxpurlArr[i])
+                getUrl(ddxpurlArr[i])
                 ddxphd = ddxphdArr[i];
 
                 $.index = i + 1;
@@ -122,7 +122,8 @@ userTaskLogId = ""
 userTasks = []
 
 function getUrl(ddxpurl) {
-    let ddxpurls = ddxpurl.split("?")[1].split("&")
+    let url = ddxpurl.split("?")
+    let ddxpurls = url[url.length - 1].split("&")
     let sendInfo = {}
     for (const val of ddxpurls) {
         let vals = val.split("&")
@@ -131,10 +132,9 @@ function getUrl(ddxpurl) {
             sendInfo[kv[0]] = kv[1]
         }
     }
-    this.uid = sendInfo["uid"]
+    uid = sendInfo["uid"]
     latitude = sendInfo["latitude"]
     longitude = sendInfo["longitude"]
-    station_id = sendInfo["station_id"]
     station_id = sendInfo["station_id"]
 }
 
@@ -770,7 +770,11 @@ function Env(t, e) {
         }
 
         getval(t) {
-            return this.isSurge() || this.isLoon() ? $persistentStore.read(t) : this.isQuanX() ? $prefs.valueForKey(t) : this.isNode() ? (this.data = this.loaddata(), this.data[t]) : this.data && this.data[t] || null
+            if (this.isNode()) {
+                return process.env[t]
+            } else {
+                return this.isSurge() || this.isLoon() ? $persistentStore.read(t) : this.isQuanX() ? $prefs.valueForKey(t) : this.isNode() ? (this.data = this.loaddata(), this.data[t]) : this.data && this.data[t] || null
+            }
         }
 
         setval(t, e) {

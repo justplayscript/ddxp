@@ -1,4 +1,5 @@
 /*
+叮咚每日签到积分
 [task_local]
 1 0 * * * https://raw.githubusercontent.com/justplayscript/ddxp/main/ddxpsign.js, tag=叮咚每日签到积分, enabled=true
 */
@@ -9,8 +10,8 @@ let ddxpurlArr = [],
     ddxphdArr = [],
     ddxpcount = ''
 let time = Math.round(Date.now() / 1000)
-let ddxpurl = $.getdata('ddxpurl') || process.env.ddxpurl
-let ddxphd = $.getdata('ddxphd') || process.env.ddxphd
+let ddxpurl = $.getdata('ddxpurl')
+let ddxphd = $.getdata('ddxphd')
 !(async () => {
     ddxpurlArr = (ddxpurl || "").split(dr)
     ddxphdArr = (ddxphd || "").split(dr)
@@ -62,10 +63,9 @@ function getUrl(ddxpurl) {
             sendInfo[kv[0]] = kv[1]
         }
     }
-    this.uid = sendInfo["uid"]
+    uid = sendInfo["uid"]
     latitude = sendInfo["latitude"]
     longitude = sendInfo["longitude"]
-    station_id = sendInfo["station_id"]
     station_id = sendInfo["station_id"]
 }
 
@@ -294,7 +294,11 @@ function Env(t, e) {
         }
 
         getval(t) {
-            return this.isSurge() || this.isLoon() ? $persistentStore.read(t) : this.isQuanX() ? $prefs.valueForKey(t) : this.isNode() ? (this.data = this.loaddata(), this.data[t]) : this.data && this.data[t] || null
+            if (this.isNode()) {
+                return process.env[t]
+            } else {
+                return this.isSurge() || this.isLoon() ? $persistentStore.read(t) : this.isQuanX() ? $prefs.valueForKey(t) : this.isNode() ? (this.data = this.loaddata(), this.data[t]) : this.data && this.data[t] || null
+            }
         }
 
         setval(t, e) {

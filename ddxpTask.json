@@ -25,7 +25,7 @@
 		{
 			"name": "叮咚下单后自动领取",
 			"type": "cron",
-			"time": "30 23 * * *",
+			"time": "55 23 * * *",
 			"job": {
 				"type": "runjs",
 				"target": "https://raw.githubusercontent.com/justplayscript/ddxp/main/ddxpxd.js"
