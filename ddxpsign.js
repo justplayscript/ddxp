@@ -3,7 +3,7 @@
 1 0 * * * https://raw.githubusercontent.com/justplayscript/ddxp/main/ddxpsign.js, tag=叮咚每日签到积分, enabled=true
 */
 
-const $ = new Env('叮咚买菜签到');
+const $ = new Env('叮咚每日签到积分');
 const dr = "@"
 let ddxpurlArr = [],
     ddxphdArr = [],
