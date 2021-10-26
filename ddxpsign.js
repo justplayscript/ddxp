@@ -10,16 +10,15 @@ let ddxpurlArr = [],
     ddxpcount = ''
 let time = Math.round(Date.now() / 1000)
 let ddxpurl = $.getdata('ddxpurl') || process.env.ddxpurl
-let ddxphd = $.getdata('ddxphd')  || process.env.ddxphd
+let ddxphd = $.getdata('ddxphd') || process.env.ddxphd
 !(async () => {
     ddxpurlArr = (ddxpurl || "").split(dr)
     ddxphdArr = (ddxphd || "").split(dr)
 
     console.log(`------------- 共${ddxphdArr.length}个账号-------------\n`)
     for (let i = 0; i < ddxphdArr.length; i++) {
-		console.log(`\n开始账号${ddxphdArr[i]}`)
         if (ddxphdArr[i]) {
-            this.getUrl(ddxpurlArr[i])
+            getUrl(ddxpurlArr[i])
             ddxphd = ddxphdArr[i];
 
             $.index = i + 1;
@@ -53,7 +52,8 @@ userTaskLogId = ""
 userTasks = []
 
 function getUrl(ddxpurl) {
-    let ddxpurls = ddxpurl.split("?")[1].split("&")
+    let url = ddxpurl.split("?")
+    let ddxpurls = url[url.length - 1].split("&")
     let sendInfo = {}
     for (const val of ddxpurls) {
         let vals = val.split("&")
