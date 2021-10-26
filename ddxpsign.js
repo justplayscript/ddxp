@@ -1,18 +1,23 @@
+/*
+[task_local]
+1 0 * * * https://raw.githubusercontent.com/justplayscript/ddxp/main/ddxpsign.js, tag=叮咚每日签到积分, enabled=true
+*/
+
 const $ = new Env('叮咚买菜签到');
 const dr = "@"
 let ddxpurlArr = [],
     ddxphdArr = [],
     ddxpcount = ''
 let time = Math.round(Date.now() / 1000)
-let ddxpurl = $.getdata('ddxpurl')
-let ddxphd = $.getdata('ddxphd')
-let fflNum = +($.getval('ddxpffl') || "10")
+let ddxpurl = $.getdata('ddxpurl') || process.env.ddxpurl
+let ddxphd = $.getdata('ddxphd')  || process.env.ddxphd
 !(async () => {
-    ddxpurlArr = ($.getdata('ddxpurl') || "").split(dr)
-    ddxphdArr = ($.getdata('ddxphd') || "").split(dr)
+    ddxpurlArr = (ddxpurl || "").split(dr)
+    ddxphdArr = (ddxphd || "").split(dr)
 
     console.log(`------------- 共${ddxphdArr.length}个账号-------------\n`)
     for (let i = 0; i < ddxphdArr.length; i++) {
+		console.log(`\n开始账号${ddxphdArr[i]}`)
         if (ddxphdArr[i]) {
             this.getUrl(ddxpurlArr[i])
             ddxphd = ddxphdArr[i];
