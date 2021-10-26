@@ -132,6 +132,7 @@ function ddxpyt(timeout = 0) {
                             console.log(`\n鱼儿已完成: ${result.data.seed.expPercent}%`)
                             if (result.data.seed.expPercent >= 100) {
                                 console.log(`\n鱼儿已养成,请及时收取`)
+								 $.msg($.name, "", `\n恭喜你,鱼儿已养成,请及时收取`)
                                 // $.msg()
                             } else if (result.data.feed.amount >= 10) {
                                 console.log(`鱼饵数量${result.data.feed.amount}`)
@@ -281,6 +282,7 @@ function ddxpgyjs(timeout = 0) {
 
                             if (result.data.seed.expPercent >= 100) {
                                 console.log(`\n水果已种成,请及时收取`)
+								 $.msg($.name, "", `\n恭喜你,水果已种成,请及时收取`)
                                 // $.msg()
                             } else if (result.data.feed.amount >= 10) {
                                 console.log(`水滴数量${result.data.feed.amount}`)
