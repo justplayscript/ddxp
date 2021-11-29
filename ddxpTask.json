@@ -48,6 +48,15 @@
 				"type": "runjs",
 				"target": "https://raw.githubusercontent.com/justplayscript/ddxp/main/ddxpautoeval.js"
 			}
+		},
+		{
+			"name": "叮咚自动抢券",
+			"type": "cron",
+			"time": "59 59 23 * * *",
+			"job": {
+				"type": "runjs",
+				"target": "https://raw.githubusercontent.com/justplayscript/ddxp/main/ddxpcouponsjm.js"
+			}
 		}
 	]
 }
