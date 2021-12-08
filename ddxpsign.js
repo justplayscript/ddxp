@@ -89,6 +89,10 @@ function ddxpqd(timeout = 0) {
                 longitude: longitude,
             }
         }
+        
+		if($.isNode()) {
+			url.body = `api_version=9.7.3&app_version=1.0.0&app_client_id=3&station_id=${station_id}&native_version=9.36.2&city_number=1103&latitude=${latitude}&longitude=${longitude}`
+		}
 
         $.post(url, async (err, resp, data) => {
             try {
