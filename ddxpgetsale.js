@@ -2,11 +2,13 @@
 叮咚获取当前折扣商品
 [task_local]
 0 9-23 * * * https://raw.githubusercontent.com/justplayscript/ddxp/main/ddxpautoeval.js, tag=叮咚获取当前折扣商品, enabled=true
+配置变量 ddxpzk="供港壹号鲜牛奶&纯悦@9.9"
 */
 
 const $ = new Env('叮咚获取当前折扣商品');
 const notify = $.isNode() ? require('./sendNotify') : null;
-const dr = "@"
+const dr = "&"
+const dr2 = "@"
 let ddxpurlArr = [],
     ddxphdArr = [],
     ddxpcount = ''
@@ -15,6 +17,7 @@ let ddxpurl = $.getdata('ddxpurl')
 let ddxphd = $.getdata('ddxphd')
 let ddxpzk = $.getdata('ddxpzk')
 let keyword = ""
+let sale = ""
 !(async () => {
     ddxpurlArr = ($.getdata('ddxpurl') || "").split(dr)
     ddxphdArr = ($.getdata('ddxphd') || "").split(dr)
@@ -26,7 +29,9 @@ let keyword = ""
             if (ddxphdArr[0]) {
                 getUrl(ddxpurlArr[0])
                 ddxphd = ddxphdArr[0];
-                keyword = ddxpzkArr[i]
+                let v = ddxpzkArr[i].split(dr2)
+                keyword = v[0]
+                sale = +v[1]
 
                 $.index = i + 1;
                 console.log(`\n开始【叮咚判断折扣${$.index}】`)
@@ -34,7 +39,7 @@ let keyword = ""
             }
         }
         $.msg($.name, "", saleArr)
-		if(notify) notify.sendNotify($.name, saleArr)
+        if (notify) notify.sendNotify($.name, saleArr)
     }
 })()
     .catch((e) => $.logErr(e))
@@ -93,9 +98,11 @@ function ddxpSale(timeout = 0) {
                     for (const val of result.data.product_list) {
                         if (val.name.indexOf(keyword) > -1 && val.stock_number > 0) {
                             if (+val.price < +val.origin_price) {
-                                saleArr += `${val.name}######\n原价${val.origin_price}现:${val.price}\n`
+                                if (sale == null || val.price <= sale)
+                                    saleArr += `${val.name}\n原价${val.origin_price}现:${val.price}\n`
                             } else if (val.vip_price != null && val.vip_price != "" && +val.vip_price < +val.origin_price) {
-                                saleArr += `${val.name}######\n原价${val.origin_price} 现vip:${val.vip_price}\n`
+                                if (sale == null || val.vip_price <= sale)
+                                    saleArr += `${val.name}\n原价${val.origin_price} 现vip:${val.vip_price}\n`
                             }
                             break;
                         }
@@ -521,3 +528,4 @@ function Env(t, e) {
         }
     }(t, e)
 }
+
