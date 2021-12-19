@@ -38,7 +38,7 @@ let saleArr = "特价列表"
             if (ddxphdArr[0]) {
                 let v = ddxpzkArr[i].split(dr2)
                 keyword = v[0]
-                sale = v[1] == null ? 0 : v[1]
+                sale = v[1] == null ? 0 : +v[1]
 
                 $.index = i + 1;
                 console.log(`\n开始【叮咚判断折扣${$.index}】`)
