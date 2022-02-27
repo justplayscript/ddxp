@@ -1,7 +1,7 @@
 /*
 叮咚自动抢券
 [task_local]
-59 23 * * * https://raw.githubusercontent.com/justplayscript/ddxp/main/ddxpcoupons.js, tag=自动抢券, enabled=true
+50 23 * * * https://raw.githubusercontent.com/justplayscript/ddxp/main/ddxpcoupons.js, tag=自动抢券, enabled=true
 配置变量 ddxpquan 为 3 5 8 15 抢不同券
 配置变量 ddxpquanyc 设置延迟(防黑) 默认1000ms,建议1000-3000都可以,基本能抢到
 */
