@@ -1,6 +1,5 @@
 # 叮咚买菜自动领取脚本
-新用户可以扫码注册,有几十块新人红包
-![image](https://github.com/justplayscript/ddxp/blob/main/img0.jpg)
+我的已经黑了各位自重.
 
 建议手动抓包.    
 anyproxy我抓取不到相关连接,QX可以自测看看是否能抓到.    
