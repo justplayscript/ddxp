@@ -10,3 +10,4 @@ anyproxy我抓取不到相关连接,QX可以自测看看是否能抓到.
 翻牌默认十次全翻完(基本是赚的),不想翻完的可以通过ddxpffl设置次数    
 多账号的用@分割,或者去脚本中修改变量即可      
 自动浇水需要设置ddxpjs为true,自动喂鱼需要设置ddxpwy为ture,默认不浇水喂鱼.     
+PS:抢券需要自己修改定时"task justplayscript_ddxp_ddxpcouponsjm.js now"（青龙有延迟,我不会写标头
